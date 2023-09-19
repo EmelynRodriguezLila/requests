@@ -4,6 +4,9 @@ const app = express()
 
 //http://localhost:3000/emelyn/123
 app.get('/:user/:password', (req, res) => {
+    res.json({msg: 'Hello Get'})
+}) 
+app.get('/:user/:password', (req, res) => {
     const {user, password} = req.params
     if(user === 'emelyn' && password === '123'){
       res.json({msg: 'Inicio de sesion exitoso'})
