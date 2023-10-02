@@ -1,8 +1,9 @@
 const express = require('express')
 
 const app = express()
+app.use(express.json())
 
-//http://localhost:3000/emelyn/123
+//http://localhost:3000/emelyn/123 FIREFOX-----------------------------------------------------------------
 app.get('/:user/:password', (req, res) => {//Endpoint el conjunto del metodo http, la ruta y la funcionalidad
     res.json({msg: 'Hello Get'})
 }) 
@@ -14,7 +15,10 @@ app.get('/:user/:password', (req, res) => {
     }
     res.json({msg: 'Fallo en el usuario o contraseña'})
 }) 
-//OTRO METODO USANDO QUERY
+//-------------------------------------------------------------------------------------------------------
+
+
+//OTRO METODO USANDO QUERY Y GET--------------------------------------------------------------------------
 //http://localhost:3000/login?user=emelyn&password=123
 app.get('/login', (req, res) => {
     const {user, password} = req.query
@@ -28,6 +32,24 @@ app.get('/login', (req, res) => {
     }
     res.status(404).json({msg: 'Wrong user or password'})
 })
+//-------------------------------------------------------------------------------------------------------
+
+
+//OTRO ENDPOINT CON POST Y BODY ES CUANDO LA INFORMACION EXTENSA------------------------------------------------------------------------------------------
+app.post('/login', (req, res) =>{
+    const {user, password}=req.body
+    if(!user || !password){
+        res.json({msg: "You nedd to provide <user> and <password> params"})
+    }
+
+    if(user === 'emelyn' && password === '123'){
+      res.status(400).json({msg: 'Sign In succesfully'})
+      return  
+    }
+    res.status(404).json({msg: 'Wrong user or password'})
+    res.json(body)
+})
+//-------------------------------------------------------------------------------------------------------
 
 app.post('/', (req, res) => {
     res.json({msg: 'Hello POST'})
